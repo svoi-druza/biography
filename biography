@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>svoi_druza — Илья</title>
+<style>
+  :root{
+    --bg:#0a0a0f;
+    --card:#14141c;
+    --neon:#00ffc8;
+    --neon2:#ff2e88;
+    --text:#e8e8f0;
+    --muted:#8a8a9a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  /* фон-градиент */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(0,255,200,.12), transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(255,46,136,.12), transparent 40%);
+    z-index:-1;
+    pointer-events:none;
+  }
+
+  /* HERO */
+  header{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:2rem;
+    position:relative;
+  }
+  .nick{
+    font-size:clamp(2.5rem,10vw,7rem);
+    font-weight:900;
+    letter-spacing:-.03em;
+    background:linear-gradient(120deg,var(--neon),var(--neon2));
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:fadeUp .9s ease both;
+  }
+  .realname{
+    font-size:clamp(1rem,3vw,1.4rem);
+    color:var(--muted);
+    margin-top:.5rem;
+    letter-spacing:.3em;
+    text-transform:uppercase;
+    animation:fadeUp 1.1s ease both;
+  }
+  .tagline{
+    max-width:640px;
+    margin:2rem auto 0;
+    font-size:clamp(1rem,2.5vw,1.3rem);
+    color:var(--text);
+    opacity:.9;
+    animation:fadeUp 1.3s ease both;
+  }
+  .tagline b{color:var(--neon);}
+  .quote{
+    margin-top:1.5rem;
+    font-style:italic;
+    color:var(--muted);
+    animation:fadeUp 1.5s ease both;
+  }
+  .scroll-hint{
+    position:absolute;
+    bottom:2rem;
+    font-size:.8rem;
+    color:var(--muted);
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    animation:bounce 2s infinite;
+  }
+
+  /* SECTIONS */
+  section{
+    max-width:1000px;
+    margin:0 auto;
+    padding:5rem 1.5rem;
+  }
+  .section-title{
+    font-size:clamp(1.8rem,5vw,2.8rem);
+    font-weight:800;
+    margin-bottom:2.5rem;
+    position:relative;
+    display:inline-block;
+  }
+  .section-title::after{
+    content:"";
+    position:absolute;
+    left:0;bottom:-.4rem;
+    width:60%;height:4px;
+    background:linear-gradient(90deg,var(--neon),var(--neon2));
+    border-radius:2px;
+  }
+
+  /* GRID CARDS */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:1.2rem;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:16px;
+    padding:1.6rem;
+    transition:.3s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(0,255,200,.4);
+    box-shadow:0 12px 40px rgba(0,255,200,.08);
+  }
+  .card .label{
+    font-size:.75rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--neon);
+    margin-bottom:.6rem;
+  }
+  .card .value{
+    font-size:1.15rem;
+    font-weight:600;
+  }
+  .card .sub{
+    font-size:.9rem;
+    color:var(--muted);
+    margin-top:.3rem;
+  }
+
+  /* TRAITS */
+  .traits{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.8rem;
+    margin-top:1rem;
+  }
+  .trait{
+    background:linear-gradient(120deg,rgba(0,255,200,.12),rgba(255,46,136,.12));
+    border:1px solid rgba(255,255,255,.08);
+    padding:.6rem 1.2rem;
+    border-radius:999px;
+    font-weight:600;
+    font-size:.95rem;
+    transition:.25s;
+  }
+  .trait:hover{
+    border-color:var(--neon);
+    transform:scale(1.06);
+  }
+
+  /* LISTS */
+  .love-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:1rem;
+  }
+  .love-item{
+    display:flex;
+    align-items:center;
+    gap:.9rem;
+    background:var(--card);
+    border-radius:12px;
+    padding:1rem 1.2rem;
+    border:1px solid rgba(255,255,255,.05);
+  }
+  .love-item .emoji{font-size:1.6rem;}
+  .love-item span{font-weight:500;}
+
+  /* FOOTER */
+  footer{
+    text-align:center;
+    padding:4rem 1.5rem 3rem;
+    color:var(--muted);
+    font-size:.9rem;
+    border-top:1px solid rgba(255,255,255,.06);
+  }
+  footer .heart{color:var(--neon2);}
+
+  /* ANIMATIONS */
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(30px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  @keyframes bounce{
+    0%,100%{transform:translateY(0);opacity:.6;}
+    50%{transform:translateY(-8px);opacity:1;}
+  }
+
+  /* REVEAL ON SCROLL */
+  .reveal{opacity:0;transform:translateY(40px);transition:.8s cubic-bezier(.2,.7,.3,1);}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<header>
+  <h1 class="nick">svoi_druza</h1>
+  <div class="realname">Илья · 15 лет</div>
+  <p class="tagline">
+    Родился в <b>Благовещенске</b>, живу в <b>Краснодаре</b>.
+    Учусь в 9 классе. Живу детство на всю катушку — и не жалею об этом.
+  </p>
+  <p class="quote">«Стремление = Провал. Лень = Прогресс.»</p>
+  <div class="scroll-hint">↓ листай вниз ↓</div>
+</header>
+
+<section class="reveal">
+  <h2 class="section-title">Обо мне</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="label">Никнейм</div>
+      <div class="value">svoi_druza</div>
+      <div class="sub">Свои люди — только друзья</div>
+    </div>
+    <div class="card">
+      <div class="label">Возраст</div>
+      <div class="value">15 лет</div>
+      <div class="sub">9 класс, школа</div>
+    </div>
+    <div class="card">
+      <div class="label">Родина</div>
+      <div class="value">Благовещенск</div>
+      <div class="sub">Сейчас — Краснодар</div>
+    </div>
+    <div class="card">
+      <div class="label">Характер</div>
+      <div class="value">Добрый, но агрессивный</div>
+      <div class="sub">Иногда включаю психолога — спасаю людей</div>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <h2 class="section-title">Кто я</h2>
+  <div class="traits">
+    <span class="trait">Лень</span>
+    <span class="trait">Алкоголь</span>
+    <span class="trait">Общение</span>
+    <span class="trait">Друзья</span>
+    <span class="trait">Веселье</span>
+    <span class="trait">Мечта о деньгах</span>
+  </div>
+  <p style="margin-top:1.8rem;color:var(--muted);max-width:640px;">
+    Мой девиз простой: <b style="color:var(--neon)">Только друзья! Больше никто!</b>
+    Вдохновляют меня друзья, а главная гордость — что я живу детство на всю катушку.
+  </p>
+</section>
+
+<section class="reveal">
+  <h2 class="section-title">Что я люблю</h2>
+  <div class="love-list">
+    <div class="love-item"><span class="emoji">🎤</span><span>Вокал</span></div>
+    <div class="love-item"><span class="emoji">🎾</span><span>Большой теннис</span></div>
+    <div class="love-item"><span class="emoji">♟️</span><span>Шахматы (раньше)</span></div>
+    <div class="love-item"><span class="emoji">🏎️</span><span>Фильм F1 (2025)</span></div>
+    <div class="love-item"><span class="emoji">🎵</span><span>Моргенштерн</span></div>
+    <div class="love-item"><span class="emoji">🍚</span><span>Мидии</span></div>
+    <div class="love-item"><span class="emoji">☀️</span><span>Лето</span></div>
+    <div class="love-item"><span class="emoji">🎢</span><span>Сочи Парк</span></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <h2 class="section-title">Мечты и страхи</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="label">Мечта</div>
+      <div class="value">Быть богатым</div>
+      <div class="sub">Веселиться и иметь много денег</div>
+    </div>
+    <div class="card">
+      <div class="label">Главная цель</div>
+      <div class="value">Вырасти и быть весёлым чуваком</div>
+      <div class="sub">Просто жить в кайф</div>
+    </div>
+    <div class="card">
+      <div class="label">Страх</div>
+      <div class="value">Вырасти и стать неуспешным</div>
+      <div class="sub">Но я этого не допущу</div>
+    </div>
+    <div class="card">
+      <div class="label">Вдохновение</div>
+      <div class="value">Друзья</div>
+      <div class="sub">Всегда и во всём</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>svoi_druza · Илья · 2026</p>
+  <p style="margin-top:.5rem;">Сделано с <span class="heart">♥</span> и правильными людьми рядом</p>
+</footer>
+
+<script>
+  // Плавное появление секций при скролле
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
