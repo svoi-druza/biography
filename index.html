@@ -436,10 +436,10 @@
 
 <section class="reveal">
   <h2 class="section-title">Написать мне</h2>
-  <form onsubmit="event.preventDefault(); alert('Спасибо! Форма пока в разработке, лучше пиши в Telegram!'); this.reset();">
-    <input type="text" placeholder="Как тебя зовут?" required>
-    <input type="email" placeholder="Твой email или Telegram" required>
-    <textarea placeholder="Сообщение..."></textarea>
+    <form action="https://formspree.io/f/mgaabzgp" method="POST">
+    <input type="text" name="name" placeholder="Как тебя зовут?" required>
+    <input type="email" name="email" placeholder="Твой email или Telegram" required>
+    <textarea name="message" placeholder="Сообщение..." required></textarea>
     <button type="submit">Отправить →</button>
   </form>
 </section>
